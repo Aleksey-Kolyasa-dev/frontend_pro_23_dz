@@ -1,0 +1,72 @@
+@import "../00_main";
+
+.author-body {
+  margin-top: 30px;
+  width: 100%;
+  justify-content: center;
+
+  > div {
+    display: flex;
+    margin: 0;
+  }
+}
+
+.author-left {
+  > div {
+    margin-top: 15px;
+    > img {
+      border-radius: 20px;
+      width: 100%;
+      box-shadow: 5px 5px 10px #969696;
+    }
+  }
+}
+
+.author-right {
+  div {
+    margin-left: 10%;
+    text-align: center;
+    > h3 {
+      .brand-text-dark();
+    }
+  }
+}
+
+.personal-info {
+  font-size: 130%;
+  margin-top: 25px;
+  tr {
+    height: 2.2em;
+
+    > td:first-of-type {
+      color: #a9aaad;
+      width: 30%;
+      font-style: italic;
+    }
+
+    > td:last-of-type {
+      text-align: right;
+    }
+  }
+}
+
+.story {
+  margin-top: 30px;
+
+  h3:first-of-type {
+    .brand-text-dark();
+  }
+
+  p {
+    text-align: center;
+    letter-spacing: 1px;
+    line-height: 1.5em;
+    font-size: 1.6em;
+  }
+
+  div {
+    margin-top: 20px;
+    margin-bottom: 2.0em;
+    font-style: italic;
+  }
+}
