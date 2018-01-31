@@ -1,4 +1,4 @@
-function CustomConfig() {
+function TasksConfig() {
     this.dest = './dist';
     this.excludes = './src/node_modules';
     this.clean = {
@@ -43,7 +43,7 @@ function CustomConfig() {
     };
 }
 
-CustomConfig.prototype.getTasks = function () {
+TasksConfig.prototype.getTasks = function () {
     return [this.html.name, this.css.name, this.less.name, this.js.name, this.img.name, this.fonts.name];
 };
-module.exports = CustomConfig;
+module.exports = TasksConfig;

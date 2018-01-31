@@ -32,8 +32,6 @@
 POST              /api/user/registration
 PUT               /api/user/login
 PUT               /api/user/:id/logout
-GET               /api/markers/:id
-PUT               /api/markers/:id
 ```
 
 ## markers

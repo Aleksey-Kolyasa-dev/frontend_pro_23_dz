@@ -28,110 +28,110 @@ const path = require('path');
 const {config} = require('./config/');
 
 // Custom Gulp Tasks Config
-let ts = new (require('./tasks/tasks.conf'))();
+const tasksConfig = new (require('./tasks/tasks.conf'))();
 
 // Tasks
-gulp.task(ts.clean.name, function () {
-    return del(ts.dest);
+gulp.task(tasksConfig.clean.name, function () {
+    return del(tasksConfig.dest);
 });
 
-gulp.task(ts.html.name, function () {
-    return gulp.src(ts.html.src, {since: gulp.lastRun(ts.html.name)})
-        .pipe(gulpIgnore.exclude(ts.excludes))
-        .pipe(newer(ts.dest))
+gulp.task(tasksConfig.html.name, function () {
+    return gulp.src(tasksConfig.html.src, {since: gulp.lastRun(tasksConfig.html.name)})
+        .pipe(gulpIgnore.exclude(tasksConfig.excludes))
+        .pipe(newer(tasksConfig.dest))
         .pipe(gulpIf(config.env !== "development", removeHtmlComments()))
         .pipe(gulpIf(config.env !== "development", htmlmin({collapseWhitespace: true})))
-        .pipe(gulp.dest(ts.dest));
+        .pipe(gulp.dest(tasksConfig.dest));
 });
 
-gulp.task(ts.css.name, function () {
-    return gulp.src(ts.css.src, {since: gulp.lastRun(ts.css.name)})
-        .pipe(gulpIgnore.exclude(ts.excludes))
-        .pipe(newer(ts.dest))
-        .pipe(remember(ts.css.name))
+gulp.task(tasksConfig.css.name, function () {
+    return gulp.src(tasksConfig.css.src, {since: gulp.lastRun(tasksConfig.css.name)})
+        .pipe(gulpIgnore.exclude(tasksConfig.excludes))
+        .pipe(newer(tasksConfig.dest))
+        .pipe(remember(tasksConfig.css.name))
         .pipe(gulpIf(config.env === "development", sourcemaps.init()))
         .pipe(autoprefixer())
         .pipe(cleanCSS({rebase: false}))
         .pipe(gulpIf(config.env === "development", sourcemaps.write('.')))
-        .pipe(concat(ts.css.out))
-        .pipe(gulp.dest(ts.dest));
+        .pipe(concat(tasksConfig.css.out))
+        .pipe(gulp.dest(tasksConfig.dest));
 });
 
-gulp.task(ts.less.name, function () {
-    return gulp.src(ts.less.src, {since: gulp.lastRun(ts.less.name)})
-        .pipe(gulpIgnore.exclude(ts.excludes))
-        .pipe(newer(ts.dest))
+gulp.task(tasksConfig.less.name, function () {
+    return gulp.src(tasksConfig.less.src, {since: gulp.lastRun(tasksConfig.less.name)})
+        .pipe(gulpIgnore.exclude(tasksConfig.excludes))
+        .pipe(newer(tasksConfig.dest))
         .pipe(less())
-        .pipe(remember(ts.less.name))
+        .pipe(remember(tasksConfig.less.name))
         .pipe(gulpIf(config.env === "development", sourcemaps.init()))
         .pipe(autoprefixer())
         .pipe(cleanCSS({rebase: false}))
         .pipe(gulpIf(config.env === "development", sourcemaps.write('./')))
-        .pipe(concat(ts.less.out))
-        .pipe(gulp.dest(ts.dest));
+        .pipe(concat(tasksConfig.less.out))
+        .pipe(gulp.dest(tasksConfig.dest));
 });
 
-gulp.task(ts.js.name, function () {
-    return browserify(ts.js.BwsSrc, {since: gulp.lastRun(ts.js.name)})
+gulp.task(tasksConfig.js.name, function () {
+    return browserify(tasksConfig.js.BwsSrc, {since: gulp.lastRun(tasksConfig.js.name)})
         .transform(babelify, {presets: ["env"]})
         .bundle()
-        .pipe(source(ts.js.out))
+        .pipe(source(tasksConfig.js.out))
         .pipe(buffer())
-        .pipe(gulpIgnore.exclude(ts.excludes))
+        .pipe(gulpIgnore.exclude(tasksConfig.excludes))
         .pipe(gulpIf(config.env === "development", sourcemaps.init()))
         .pipe(gulpIf(config.env !== "development", uglify({mangle:false})))
         .pipe(gulpIf(config.env === "development", sourcemaps.write('./')))
-        .pipe(gulp.dest(ts.dest));
+        .pipe(gulp.dest(tasksConfig.dest));
 });
 
-gulp.task(ts.img.name, function () {
-    return gulp.src(ts.img.src, {since: gulp.lastRun(ts.img.name)})
-        .pipe(gulpIgnore.exclude(ts.excludes))
-        .pipe(newer(ts.dest))
-        .pipe(remember(ts.img.name))
+gulp.task(tasksConfig.img.name, function () {
+    return gulp.src(tasksConfig.img.src, {since: gulp.lastRun(tasksConfig.img.name)})
+        .pipe(gulpIgnore.exclude(tasksConfig.excludes))
+        .pipe(newer(tasksConfig.dest))
+        .pipe(remember(tasksConfig.img.name))
         .pipe(gulpIf(config.env !== "development", imagemin()))
-        .pipe(gulp.dest(ts.dest));
+        .pipe(gulp.dest(tasksConfig.dest));
 });
 
-gulp.task(ts.fonts.name, function () {
-    return gulp.src(ts.fonts.src, {since: gulp.lastRun(ts.fonts.name)})
-        .pipe(gulpIgnore.exclude(ts.excludes))
-        .pipe(newer(ts.dest))
-        .pipe(remember(ts.fonts.name))
-        .pipe(gulp.dest(ts.dest));
+gulp.task(tasksConfig.fonts.name, function () {
+    return gulp.src(tasksConfig.fonts.src, {since: gulp.lastRun(tasksConfig.fonts.name)})
+        .pipe(gulpIgnore.exclude(tasksConfig.excludes))
+        .pipe(newer(tasksConfig.dest))
+        .pipe(remember(tasksConfig.fonts.name))
+        .pipe(gulp.dest(tasksConfig.dest));
 });
 
-gulp.task(ts.build.name, gulp.series(ts.build.tasks));
+gulp.task(tasksConfig.build.name, gulp.series(tasksConfig.build.tasks));
 
 gulp.task('watch', function () {
-    gulp.watch(ts.html.src, gulp.series(ts.html.name));
+    gulp.watch(tasksConfig.html.src, gulp.series(tasksConfig.html.name));
 
-    gulp.watch(ts.css.src, gulp.series(ts.css.name)).on('unlink', function (filepath) {
-        remember.forget(ts.css.name, path.resolve(filepath));
+    gulp.watch(tasksConfig.css.src, gulp.series(tasksConfig.css.name)).on('unlink', function (filepath) {
+        remember.forget(tasksConfig.css.name, path.resolve(filepath));
     });
 
-    gulp.watch(ts.less.src, gulp.series(ts.less.name)).on('unlink', function (filepath) {
-        remember.forget(ts.less.name, path.resolve(filepath));
+    gulp.watch(tasksConfig.less.src, gulp.series(tasksConfig.less.name)).on('unlink', function (filepath) {
+        remember.forget(tasksConfig.less.name, path.resolve(filepath));
     });
 
-    gulp.watch(ts.js.src, gulp.series(ts.js.name));
+    gulp.watch(tasksConfig.js.src, gulp.series(tasksConfig.js.name));
 
-    gulp.watch(ts.img.src, gulp.series(ts.img.name)).on('unlink', function (filepath) {
-        remember.forget(ts.img.name, path.resolve(filepath));
+    gulp.watch(tasksConfig.img.src, gulp.series(tasksConfig.img.name)).on('unlink', function (filepath) {
+        remember.forget(tasksConfig.img.name, path.resolve(filepath));
     });
 
-    gulp.watch(ts.fonts.src, gulp.series(ts.fonts.name));
+    gulp.watch(tasksConfig.fonts.src, gulp.series(tasksConfig.fonts.name));
 });
 
-gulp.task(ts.serve.name, function () {
+gulp.task(tasksConfig.serve.name, function () {
     browserSync.init({
-        proxy: 'http://localhost:' + ts.serve.port + '/'
+        proxy: 'http://localhost:' + tasksConfig.serve.port + '/'
     });
-    browserSync.watch(ts.dest + '/**/*.*').on('change', browserSync.reload);
+    browserSync.watch(tasksConfig.dest + '/**/*.*').on('change', browserSync.reload);
 });
 
 // build PRODUCTION
-gulp.task('default', gulp.series(ts.clean.name, ts.build.name));
+gulp.task('default', gulp.series(tasksConfig.clean.name, tasksConfig.build.name));
 
 // build DEVELOPMENT & WATCH & BROWSER-SYNC
-gulp.task('dev', gulp.series(ts.clean.name, ts.build.name, gulp.parallel('watch', ts.serve.name)));
+gulp.task('dev', gulp.series(tasksConfig.clean.name, tasksConfig.build.name, gulp.parallel('watch', tasksConfig.serve.name)));

@@ -14,6 +14,7 @@ class usersLoginCtrl {
             // Do Login
             else{
                 ResourceService._ajaxRequest("PUT", "user/login", user).then( (success) => {
+
                     if(success.data._id){
                         toastr.success(`WELCOME, ${success.data.name} !`);
                         $log.log(`WELCOME, ${success.data.name} !`);
@@ -26,7 +27,6 @@ class usersLoginCtrl {
                         // EVENT: SEND LOGGED USER DATA ( to mainCtrl )
                         success.data.isLogged = true;
                         $scope.$emit('LOGGED', success.data);
-
                     }
                 }, (err) => {
                     $log.log('ERROR: LOGIN FAILED', err);

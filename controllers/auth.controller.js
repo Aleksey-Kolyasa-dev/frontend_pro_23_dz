@@ -4,9 +4,11 @@ const { msgErr} = require('../config');
 exports.registration = async (req, res, next) => {
     const { body } = req;
     if (!body.login || !body.password || !body.name) return next(new Error(msgErr.user.validation));
+
+    const _user = await User.findOne({ login : body.login });
+    if(_user) return next(new Error(msgErr.user.occupied));
+
     try {
-        const _user = await User.findOne({ login : body.login });
-        if(_user) return next(new Error(msgErr.user.occupied));
         const user = new User(body);
         const registredUser = await user.save();
         res.json(registredUser);
@@ -24,8 +26,8 @@ exports.login = async (req, res, next) => {
 
         if(!_user.checkPassword(body.password + _user.salt)) return next(new Error(msgErr.user.password));
 
-        _user.isLogged = false;
-        await _user.update();
+        _user.isLogged = true;
+        await _user.update({upsert : true});
         res.json(_user);
     } catch (error) {
         return next(error);
@@ -38,32 +40,7 @@ exports.logout = async (req, res, next) => {
     try {
         const _user = await User.findById(id);
         _user.isLogged = false;
-        await _user.update();
-        res.json(_user);
-    } catch (error) {
-        return next(error);
-    }
-};
-
-exports.getMarkers = async (req, res, next) => {
-    const {id} = req.params;
-    if(!id) return next(new Error(msgErr.user.validation));
-    try {
-        const _user = await User.findById(id);
-        res.json(_user.markers);
-    } catch (error) {
-        return next(error);
-    }
-};
-
-exports.saveMarkers = async (req, res, next) => {
-    const {id} = req.params;
-    const {body:markers} = req;
-    if(!id && !Array.isArray(markers)) return next(new Error(msgErr.user.validation));
-    try {
-        const _user = await User.findById(id);
-        _user.markers = markers;
-        await _user.update();
+        await _user.update({upsert : true});
         res.json(_user);
     } catch (error) {
         return next(error);

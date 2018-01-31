@@ -23,8 +23,8 @@ exports.config = {
 exports.msgErr = {
     user: {
         validation: 'VALIDATION FAILED!',
-        notFound: 'USER NOT FOUND!',
-        password: 'PASSWORD VALIDATION FAILED!',
+        notFound: 'USER NOT FOUND, SING UP FIRST!',
+        password: 'INCORRECT PASSWORD!',
         occupied: 'SUCH LOGIN ALREADY EXISTS!'
     },
 
