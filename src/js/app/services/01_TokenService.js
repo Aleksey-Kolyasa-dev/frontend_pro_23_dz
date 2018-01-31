@@ -3,7 +3,7 @@ class TokenService {
         this.$log = $log;
         this.$window = $window;
         this.expire = 1000*60*60*24;
-        this.tokenName = 'doitUser';
+        this.tokenName = 'dz_js_user';
 
     }
 

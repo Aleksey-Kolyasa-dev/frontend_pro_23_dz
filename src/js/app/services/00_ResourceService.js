@@ -5,10 +5,6 @@ class ResourceService {
         this.$q = $q;
         this.toastr = toastr;
 
-        // Uncomment if use herokuapp.com
-        //this.baseURL = 'https://doit-test-demo.herokuapp.com/api/';
-
-        // Uncomment if use localhost
         this.baseURL = 'http://localhost:3000/api/';
 
     }
@@ -27,9 +23,8 @@ class ResourceService {
                                 deferred.resolve(data);
                             },
                             (err) => {
-                                self.toastr.error('ERROR: GET method failed');
-                                deferred.reject('ERROR: GET method failed');
-                                throw new Error('ERROR: GET method failed: ', err);
+                                self.toastr.error(err.message || err.data || 'ERROR: GET method failed');
+                                deferred.reject(err);
                             });
                     }
                     break;
@@ -41,9 +36,8 @@ class ResourceService {
                                 deferred.resolve(data);
                             },
                             (err) => {
-                                self.toastr.error('ERROR: POST method failed');
-                                deferred.reject('ERROR: POST method failed');
-                                throw new Error('ERROR: POST method failed: ', err);
+                                self.toastr.error(err.message || err.data || 'ERROR: POST method failed');
+                                deferred.reject(err);
                             });
                     }
                     break;
@@ -55,9 +49,8 @@ class ResourceService {
                                 deferred.resolve(data);
                             },
                             (err) => {
-                                self.toastr.error('ERROR: PUT method failed');
-                                deferred.reject('ERROR: PUT method failed');
-                                throw new Error('ERROR: PUT method failed: ', err);
+                                self.toastr.error(err.message || err.data || 'ERROR: PUT method failed');
+                                deferred.reject(err);
                             });
                     }
                     if (url && data) {
@@ -67,9 +60,8 @@ class ResourceService {
                                 deferred.resolve(data);
                             },
                             (err) => {
-                                self.toastr.error('ERROR: PUT method failed');
-                                deferred.reject('ERROR: PUT method failed');
-                                throw new Error('ERROR: PUT method failed: ', err);
+                                self.toastr.error(err.message || err.data || 'ERROR: PUT method failed');
+                                deferred.reject(err);
                             });
                     }
                     break;
@@ -81,14 +73,13 @@ class ResourceService {
                             self.toastr.info('DELETE OPS SUCCESS');
                         },
                         (err) => {
-                            self.toastr.error('ERROR: DELETE method failed');
-                            deferred.reject('ERROR: DELETE method failed');
-                            throw new Error('ERROR: DELETE method failed: ', err);
+                            self.toastr.error(err.message || err.data || 'ERROR: DELETE method failed');
+                            deferred.reject(err);
                         });
                     break;
             }
         }).catch(function (err) {
-            self.toastr.error("ERROR: AJAX OPS. faild");
+            self.toastr.error(err.message || err.data || "ERROR: AJAX OPS. faild");
             self.$log.warn(err);
         });
         return deferred.promise;

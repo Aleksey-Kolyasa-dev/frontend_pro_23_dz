@@ -1,15 +1,14 @@
 {
-  "name": "test1",
+  "name": "dz",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production PORT=3000 && gulp && node server.js",
-    "dev": "concurrently \"cross-env NODE_ENV=development PORT=3000 && node server.js\" \"gulp dev\""
-  },
-  "repository": {
-    "type": "git",
-    "url": "git"
+    "start": "set NODE_ENV=production && gulp && node server.js",
+    "dev": "concurrently \"cross-env NODE_ENV=development PORT=3000 node server.js\" \"gulp dev\"",
+    "postinstall": "cd ./src && npm install && cd .. && npm run start",
+    "servdev": "cross-env NODE_ENV=development PORT=3000 nodemon server.js",
+    "servprod": "cross-env NODE_ENV=production PORT=3000 node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -20,24 +19,17 @@
     "crypto-js": "^3.1.9-1",
     "ejs": "^2.5.7",
     "express": "^4.16.2",
-    "express-fileupload": "^0.3.0",
     "mongoose": "^5.0.1",
-    "cross-env": "^5.1.1",
     "morgan": "^1.9.0",
-    "nodemon": "^1.13.3",
-    "angular": "^1.6.6",
-    "angular-animate": "^1.6.6",
-    "angular-route": "^1.6.6",
-    "angular-toastr": "^2.1.1",
-    "bootstrap": "^3.3.7",
-    "bootstrap-less": "^3.3.8"
+    "serve-favicon": "^2.4.5"
   },
   "devDependencies": {
+    "cross-env": "^5.1.3",
     "babel-core": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "babelify": "^8.0.0",
-    "browserify": "^14.5.0",
     "browser-sync": "^2.18.13",
+    "browserify": "^14.5.0",
     "del": "^3.0.0",
     "gulp": "github:gulpjs/gulp#4.0",
     "gulp-autoprefixer": "^4.0.0",
@@ -46,6 +38,7 @@
     "gulp-debug": "^3.1.0",
     "gulp-htmlmin": "^3.0.0",
     "gulp-if": "^2.0.2",
+    "gulp-ignore": "^2.0.2",
     "gulp-imagemin": "^3.4.0",
     "gulp-less": "^3.3.2",
     "gulp-newer": "^1.3.0",
@@ -55,8 +48,5 @@
     "gulp-uglify": "^3.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^2.0.0"
-  },
-  "engines": {
-    "node": "8.9.3"
   }
 }

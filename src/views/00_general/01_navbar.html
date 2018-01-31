@@ -32,8 +32,10 @@
 
         <div ng-if="currentUser.isLogged" class="auth">
             <div class="login">
-
-                <span class="userName"><span class="glyphicon glyphicon-user"></span> {{currentUser.name}}</span>
+                <span class="userName-xs">
+                    <img src="../../assets/img/user.png" alt="">
+                    {{currentUser.name}}
+                </span>
             </div>
             <div ng-controller="usersLogoutCtrl">
                 <a ng-click="doLogout()">
@@ -70,7 +72,10 @@
         <div ng-if="currentUser.isLogged" class="auth-xs">
             <div class="login">
 
-                <span class="userName-xs"><span class="glyphicon glyphicon-user"></span> {{currentUser.name}}</span>
+                <span class="userName-xs">
+                    <img src="../../assets/img/user.png" alt="">
+                    {{currentUser.name}}
+                </span>
             </div>
             <div ng-controller="usersLogoutCtrl">
                 <a ng-click="doLogout()">

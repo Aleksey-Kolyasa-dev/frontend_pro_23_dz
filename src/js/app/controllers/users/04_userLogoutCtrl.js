@@ -6,7 +6,7 @@ class usersLogoutCtrl {
     init($scope, $log, ResourceService, toastr) {
         $scope.doLogout = () => {
 
-            ResourceService._ajaxRequest("PUT", "users/logout/" + $scope.currentUser._id, null).then(
+            ResourceService._ajaxRequest("PUT", `user/${$scope.currentUser._id}/logout/`, null).then(
                 (success) => {
                     if (success) {
                         toastr.info(`GOOD BYE, ${$scope.currentUser.name}!`);

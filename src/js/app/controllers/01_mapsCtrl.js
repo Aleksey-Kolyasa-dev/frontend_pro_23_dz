@@ -46,7 +46,7 @@ class mapsCtrl {
          * */
         $scope.markers = {
             save: function () {
-                ResourceService._ajaxRequest("PUT", "users/saveMarkers/" + $scope.currentUser._id, userMarkers).then(
+                ResourceService._ajaxRequest("PUT", `markers/${$scope.currentUser._id}`, userMarkers).then(
                     (data) => {
                         toastr.success('MARKERS SAVED');
                         $log.log('MARKERS SAVED');
@@ -57,7 +57,7 @@ class mapsCtrl {
                 // Reset Markers
                 this.clear(true);
 
-                ResourceService._ajaxRequest("GET", "users/getMarkers/" + $scope.currentUser._id).then(
+                ResourceService._ajaxRequest("GET", `markers/${$scope.currentUser._id}`).then(
                     (response) => {
                         if (response.data.length) {
                             // Fill in the userMarkers Array

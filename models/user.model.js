@@ -23,6 +23,7 @@ const userShema = new Schema({
     },
     isLogged: {
         type: Boolean,
+        default: false
     },
     markers: {
       type: Array,

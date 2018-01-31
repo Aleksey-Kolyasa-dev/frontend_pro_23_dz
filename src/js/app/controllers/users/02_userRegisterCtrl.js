@@ -8,29 +8,23 @@ class usersRegisterCtrl {
             // Input Validation
            if( !user.login || !user.password || !user.confirmPassword || !user.name  ){
                toastr.error('WRONG INPUT, CHECK AGAIN!');
-               throw new Error('INVALID INPUT');
+               return;
            }
            // Passwords Validation
            else if(user.password !== user.confirmPassword){
                toastr.error('PASSWORDS CONFIRMATION ERROR!');
-               console.log('PASSWORDS CONFIRMATION ERROR!');
+               return;
            }
            // Do Registration
            else{
-               ResourceService._ajaxRequest("POST", "users/registration", user).then( (response)=>{
+               ResourceService._ajaxRequest("POST", "user/registration", user).then( (response)=>{
                   if(response.data._id){
-
                       // EVENT: DO AUTO-LOGIN if REGISTRED (via userMainCtrl to userLoginCtrl)
                       $scope.$emit('REGISTRED', user);
                       $log.log(`User REGISTRED: ${response.data.name}`);
-
-                  } else {
-                      $log.log('ERROR: SUCH LOGIN IS OCCUPIED');
-                      toastr.error('ERROR: SUCH LOGIN IS OCCUPIED');
                   }
                }, (err) => {
                    $log.log('ERROR: REGISTRATION FAILED', err);
-                   toastr.error('ERROR: REGISTRATION FAILED');
                });
            }
         }

@@ -3,6 +3,7 @@ import angular  from 'angular';
 import ngRoute from 'angular-route';
 import ngAnimate from 'angular-animate';
 import toastr from 'angular-toastr';
+import * as bootstrap from 'bootstrap-less';
 
 // App components
 import { index } from './app/index.module';
@@ -21,7 +22,6 @@ app.config(['$routeProvider', function ($routeProvider) {
     }).otherwise({
         templateUrl : '/views/01_pages/00_start_page.html',
     });
-
 }]);
 
 // Toastr Configure

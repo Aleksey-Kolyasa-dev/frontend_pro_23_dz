@@ -1,12 +1,12 @@
 function CustomConfig() {
     this.dest = './dist';
-    this.exclude = '!src/node_modules/';
+    this.excludes = './src/node_modules';
     this.clean = {
         name: 'clean'
     };
     this.html = {
         name: 'HTML',
-        src: ['src/**/*.html', this.exclude],
+        src: ['src/**/*.html'],
     };
     this.css = {
         name: 'CSS',
@@ -15,22 +15,22 @@ function CustomConfig() {
     };
     this.less = {
         name: 'LESS',
-        src: 'src/css/**/*.less',
+        src: ['src/css/**/*.less'],
         out: 'all-less.css'
     };
     this.js = {
         name: 'JS',
-        src: ['src/js/**/*.js', this.exclude],
+        src: ['src/js/**/*.js'],
         BwsSrc: './src/js/main.js',
         out: 'bundle.js',
     };
     this.img = {
         name: 'IMG',
-        src: ['src/**/*.{png,jpg,ico}', this.exclude],
+        src: ['src/**/*.{png,jpg,ico}'],
     };
     this.fonts = {
         name: 'FONTS',
-        src: ['src/**/*.{eot,svg,ttf,woff,otf}', this.exclude],
+        src: ['src/**/*.{eot,svg,ttf,woff,otf}'],
     };
 
     this.build = {

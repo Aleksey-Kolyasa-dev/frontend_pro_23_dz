@@ -9,13 +9,12 @@ class usersLoginCtrl {
             // Input Validation
             if( !user.login || !user.password ){
                 toastr.error('WRONG INPUT, CHECK AGAIN!');
-                throw new Error('INVALID INPUT');
+                return;
             }
             // Do Login
             else{
-                ResourceService._ajaxRequest("POST", "users/login", user).then( (success) => {
+                ResourceService._ajaxRequest("PUT", "user/login", user).then( (success) => {
                     if(success.data._id){
-
                         toastr.success(`WELCOME, ${success.data.name} !`);
                         $log.log(`WELCOME, ${success.data.name} !`);
 
@@ -28,14 +27,9 @@ class usersLoginCtrl {
                         success.data.isLogged = true;
                         $scope.$emit('LOGGED', success.data);
 
-                    } else {
-                        $log.log(success);
-                        $log.log('ERROR: USER NOT FOUND!');
-                        toastr.error('ERROR: USER NOT FOUND!');
                     }
                 }, (err) => {
                     $log.log('ERROR: LOGIN FAILED', err);
-                    toastr.error('ERROR: LOGIN FAILED');
                 });
             }
         };
